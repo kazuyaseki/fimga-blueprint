@@ -4,6 +4,7 @@ export const createAutoLayoutFrame = (props: {
   paddingTopAndBottomPx?: number
   paddingLeftAndRightPx?: number
   cornerRadius?: number
+  itemSpacing?: number
 }) => {
   const frame = figma.createFrame()
   frame.name = props.name
@@ -19,6 +20,27 @@ export const createAutoLayoutFrame = (props: {
   }
   if(props.cornerRadius) {
     frame.cornerRadius = props.cornerRadius
+  }
+  if(props.itemSpacing) {
+    frame.itemSpacing = props.itemSpacing
+  }
+
+  return frame;
+}
+
+export const createFrame = (props: {
+  name: string
+  size?: number
+  cornerRadius?: number
+}) => {
+  const frame = figma.createFrame()
+  frame.name = props.name
+  if(props.cornerRadius) {
+    frame.cornerRadius = props.cornerRadius
+  }
+
+  if(props.size) {
+    frame.resize(props.size, props.size)
   }
 
   return frame;
