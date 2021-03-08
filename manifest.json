@@ -1,0 +1,7 @@
+{
+  "name": "Figma Blueprint",
+  "id": "950361840949586992",
+  "api": "1.0.0",
+  "main": "dist/code.js",
+  "ui": "dist/ui.html"
+}
