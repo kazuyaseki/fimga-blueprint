@@ -6,6 +6,7 @@ export const createAutoLayoutFrame = (props: {
   cornerRadius?: number
   itemSpacing?: number
   widthPx?: number
+  strokeColor?: RGB
 }) => {
   const frame = figma.createFrame()
   frame.name = props.name
@@ -28,6 +29,9 @@ export const createAutoLayoutFrame = (props: {
   if(props.widthPx) {
     frame.primaryAxisSizingMode = "FIXED"
     frame.resize(props.widthPx, frame.height)
+  }
+  if(props.strokeColor) {
+    frame.strokes = [{ type: "SOLID" as const, color: props.strokeColor}]
   }
 
   return frame;
@@ -54,6 +58,7 @@ export const createFrame = (props: {
 export const createTextNode = async (props: {
   initialCharacter?: string
   color?: RGB
+  fontSize?: number
 }) => {
   await figma.loadFontAsync({ style: "Regular", family: "Roboto" })
   const text = figma.createText()
@@ -62,7 +67,10 @@ export const createTextNode = async (props: {
   if(props.color) {
     text.fills = [{ type: "SOLID" as const, color: props.color}]
   } else {
-    text.fills = [{ type: "SOLID" as const, color: { r: 0.3, g: 0.3, b: 0.3 }}]
+    text.fills = [{ type: "SOLID" as const, color: { r: 66 / 255, g: 66 / 255, b: 75 / 255 }}]
+  }
+  if (props.fontSize) {
+    text.fontSize = props.fontSize
   }
 
   return text

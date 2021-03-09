@@ -15,11 +15,7 @@ const optionGroups = [
       },{
         key: "buttonGroups",
         title: "buttonGroups",
-      },
-      // {
-      //   key: "dropzone",
-      //   title: "Dropzone",
-      // }
+      }
     ]
   },{
     title: "Form",
@@ -86,6 +82,12 @@ const optionGroups = [
   }
 ]
 
+function appendChildern(node: FrameNode, children: SceneNode[]) {
+  children.forEach((child) => {
+    node.appendChild(child)
+  })
+}
+
 const onCreate = {
   button: async () => {
     const text = await createTextNode({})
@@ -131,10 +133,29 @@ const onCreate = {
   },
   textInput: async () => {
     const text = await createTextNode({color: {r: 153 / 255, g: 153 / 255, b: 153 / 255}, initialCharacter: "Placeholder..."})
-    const frame = createAutoLayoutFrame({name: "Text Input", paddingTopAndBottomPx: 8, paddingLeftAndRightPx: 12, cornerRadius: 4, itemSpacing: 8, widthPx: 320})
+    const frame = createAutoLayoutFrame({name: "Text Input", paddingTopAndBottomPx: 8, paddingLeftAndRightPx: 12, cornerRadius: 4, itemSpacing: 8, widthPx: 320, strokeColor: {r: 220 / 255, g: 220 / 255, b: 220 / 255}})
     frame.appendChild(text)
 
     return frame
+  },
+  textInputWithLabelAndError: async () => {
+    const labelText = await createTextNode({initialCharacter: "Label", fontSize: 12})
+    
+    const spacer16 = createFrame({name: "Spacer", size: 8})
+
+    const placeholderText = await createTextNode({color: {r: 153 / 255, g: 153 / 255, b: 153 / 255}, initialCharacter: "Placeholder..."})
+    const inputFrame = createAutoLayoutFrame({name: "Text Input", paddingTopAndBottomPx: 8, paddingLeftAndRightPx: 12, cornerRadius: 4, itemSpacing: 8, widthPx: 320, strokeColor: {r: 220 / 255, g: 220 / 255, b: 220 / 255}})
+    inputFrame.appendChild(placeholderText)
+
+    const spacer8 = createFrame({name: "Spacer", size: 4})
+
+    const errorText = await createTextNode({initialCharacter: "error message!!", color: {r: 244 / 255, g: 67 / 255, b: 54 / 255}, fontSize: 11})
+
+    const containerFrame = createAutoLayoutFrame({name: "Text Input with Label and Error",isVertical: true})
+
+    appendChildern(containerFrame, [labelText, spacer16, inputFrame, spacer8, errorText])
+
+    return containerFrame
   },
 }
 
