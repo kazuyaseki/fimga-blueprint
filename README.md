@@ -1,5 +1,5 @@
-# Figma Realistic Dummy Text ja
-日本語で本物っぽいテキストを挿入する Figma プラグインです。
+# Figma Blueprint
+Figma plugin to relaize Headless design.
 
 ## Development
 
