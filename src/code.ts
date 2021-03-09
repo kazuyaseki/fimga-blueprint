@@ -15,10 +15,11 @@ const optionGroups = [
       },{
         key: "buttonGroups",
         title: "buttonGroups",
-      },{
-        key: "dropzone",
-        title: "Dropzone",
-      }
+      },
+      // {
+      //   key: "dropzone",
+      //   title: "Dropzone",
+      // }
     ]
   },{
     title: "Form",
@@ -132,6 +133,13 @@ const onCreate = {
     groupFrame.appendChild(button3)
 
     return groupFrame
+  },
+  textInput: async () => {
+    const text = await createTextNode({color: {r: 153 / 255, g: 153 / 255, b: 153 / 255}, initialCharacter: "Placeholder..."})
+    const frame = createAutoLayoutFrame({name: "Text Input", paddingTopAndBottomPx: 8, paddingLeftAndRightPx: 12, cornerRadius: 4, itemSpacing: 8, widthPx: 320})
+    frame.appendChild(text)
+
+    return frame
   },
 }
 

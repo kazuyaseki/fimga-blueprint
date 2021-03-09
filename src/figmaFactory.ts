@@ -5,6 +5,7 @@ export const createAutoLayoutFrame = (props: {
   paddingLeftAndRightPx?: number
   cornerRadius?: number
   itemSpacing?: number
+  widthPx?: number
 }) => {
   const frame = figma.createFrame()
   frame.name = props.name
@@ -23,6 +24,10 @@ export const createAutoLayoutFrame = (props: {
   }
   if(props.itemSpacing) {
     frame.itemSpacing = props.itemSpacing
+  }
+  if(props.widthPx) {
+    frame.primaryAxisSizingMode = "FIXED"
+    frame.resize(props.widthPx, frame.height)
   }
 
   return frame;
@@ -48,10 +53,17 @@ export const createFrame = (props: {
 
 export const createTextNode = async (props: {
   initialCharacter?: string
+  color?: RGB
 }) => {
   await figma.loadFontAsync({ style: "Regular", family: "Roboto" })
   const text = figma.createText()
   text.characters = props.initialCharacter || "Text"
+
+  if(props.color) {
+    text.fills = [{ type: "SOLID" as const, color: props.color}]
+  } else {
+    text.fills = [{ type: "SOLID" as const, color: { r: 0.3, g: 0.3, b: 0.3 }}]
+  }
 
   return text
 }
