@@ -1,4 +1,4 @@
-import { createAutoLayoutFrame, createFrame, createTextNode } from "./figmaFactory";
+import { createAutoLayoutFrame, createFrame, createLine, createTextNode } from "./figmaFactory";
 
 figma.showUI(__html__, { height: 320 });
 
@@ -106,6 +106,32 @@ const onCreate = {
     frame.appendChild(text)
 
     return frame
+  },
+  buttonGroups: async () => {
+    const text1 = await createTextNode({})
+    const button1 = createAutoLayoutFrame({name: "Button", paddingTopAndBottomPx: 8, paddingLeftAndRightPx: 16})
+    button1.appendChild(text1)
+
+    const line1 = createLine({widthPx: 30, vertical: true})
+
+    const text2 = await createTextNode({})
+    const button2 = createAutoLayoutFrame({name: "Button", paddingTopAndBottomPx: 8, paddingLeftAndRightPx: 16})
+    button2.appendChild(text2)
+
+    const line2 = createLine({widthPx: 30, vertical: true})
+
+    const text3 = await createTextNode({})
+    const button3 = createAutoLayoutFrame({name: "Button", paddingTopAndBottomPx: 8, paddingLeftAndRightPx: 16})
+    button3.appendChild(text3)
+
+    const groupFrame = createAutoLayoutFrame({name: "ButtonGroup", cornerRadius: 4, itemSpacing: 0})
+    groupFrame.appendChild(button1)
+    groupFrame.appendChild(line1)
+    groupFrame.appendChild(button2)
+    groupFrame.appendChild(line2)
+    groupFrame.appendChild(button3)
+
+    return groupFrame
   },
 }
 

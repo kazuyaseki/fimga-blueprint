@@ -55,3 +55,22 @@ export const createTextNode = async (props: {
 
   return text
 }
+
+export const createLine = (props: {
+  widthPx?: number
+  vertical?: boolean
+}) => {
+  const line = figma.createLine()
+  const strokes:SolidPaint[] = [{ type: "SOLID" as const, color: { r: 0.9, g: 0.9, b: 0.9 }}]
+  line.strokes = strokes
+
+  if(props.widthPx) {
+    line.resize(props.widthPx, 0)
+  }
+
+  if(props.vertical) {
+    line.rotation = 90
+  }
+
+  return line
+}
