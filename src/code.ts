@@ -26,13 +26,8 @@ const optionGroups = [
     options: [{
       key: "textInput",
       title: "Text Input"
-    },{
-      key: "textInputWithIcon",
-      title: "Text Input with Icon"
-    },{
-      key: "textInputWithLabel",
-      title: "Text Input with Label"
-    },{
+    },
+    {
       key: "textInputWithLabelAndError",
       title: "Text Input with Label and Error"
     },{
