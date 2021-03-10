@@ -41,15 +41,26 @@ export const createFrame = (props: {
   name: string
   size?: number
   cornerRadius?: number
+  widthPx?: number
+  heightPx?: number
+  strokeColor?: RGB
 }) => {
   const frame = figma.createFrame()
   frame.name = props.name
   if(props.cornerRadius) {
     frame.cornerRadius = props.cornerRadius
   }
-
   if(props.size) {
     frame.resize(props.size, props.size)
+  }
+  if(props.widthPx) {
+    frame.resize(props.widthPx, frame.width)
+  }
+  if(props.heightPx) {
+    frame.resize(frame.width, props.heightPx)
+  }
+  if(props.strokeColor) {
+    frame.strokes = [{ type: "SOLID" as const, color: props.strokeColor}]
   }
 
   return frame;
