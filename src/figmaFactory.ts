@@ -44,6 +44,7 @@ export const createFrame = (props: {
   widthPx?: number
   heightPx?: number
   strokeColor?: RGB
+  fillColor?: RGB
 }) => {
   const frame = figma.createFrame()
   frame.name = props.name
@@ -62,6 +63,9 @@ export const createFrame = (props: {
   if(props.strokeColor) {
     frame.strokes = [{ type: "SOLID" as const, color: props.strokeColor}]
   }
+  if(props.fillColor) {
+    frame.fills = [{ type: "SOLID" as const, color: props.fillColor}]
+  }
 
   return frame;
 }
@@ -70,11 +74,16 @@ export const createTextNode = async (props: {
   initialCharacter?: string
   color?: RGB
   fontSize?: number
+  style?: string
 }) => {
   await figma.loadFontAsync({ style: "Regular", family: "Roboto" })
   const text = figma.createText()
   text.characters = props.initialCharacter || "Text"
 
+  if(props.style) {
+    await figma.loadFontAsync({ style: props.style, family: "Roboto" })
+    text.fontName = { style: props.style, family: "Roboto" }
+  }
   if(props.color) {
     text.fills = [{ type: "SOLID" as const, color: props.color}]
   } else {
