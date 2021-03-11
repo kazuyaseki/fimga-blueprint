@@ -7,6 +7,7 @@ export const createAutoLayoutFrame = (props: {
   itemSpacing?: number
   widthPx?: number
   strokeColor?: RGB
+  alignItemsCenter?: boolean
 }) => {
   const frame = figma.createFrame()
   frame.name = props.name
@@ -27,11 +28,13 @@ export const createAutoLayoutFrame = (props: {
     frame.itemSpacing = props.itemSpacing
   }
   if(props.widthPx) {
-    frame.primaryAxisSizingMode = "FIXED"
     frame.resize(props.widthPx, frame.height)
   }
   if(props.strokeColor) {
     frame.strokes = [{ type: "SOLID" as const, color: props.strokeColor}]
+  }
+  if(props.alignItemsCenter) {
+    frame.counterAxisAlignItems = "CENTER"
   }
 
   return frame;
