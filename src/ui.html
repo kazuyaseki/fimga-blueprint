@@ -21,16 +21,25 @@
 
   .option-list {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     margin: 0;
-    padding: 0;
+    padding: 20px;
+    gap: 8px;
   }
 
   .option {
-    background-color: #fff;
+    background-color: #e5e5e5;
     border: none;
     text-align: left;
     padding: 8px 12px;
+    width: 120px;
+    height: 80px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
   }
 
   .option:not(:last-child) {
@@ -59,7 +68,14 @@ onmessage = (event) => {
     optionsEl.classList.add("option-list")
     group.options.forEach((option) => {
       const optionEl = document.createElement("button")
-      optionEl.innerHTML = option.title
+      const img = document.createElement("img")
+      // img.src = require(`./images/${option.key}.png`)
+      img.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADcAAAAeCAYAAACIeIa4AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAHtSURBVHgB7Zm/SwJhGMefi7ZzaErH/oBK2wo3CxwCC4RABQdBR0FdbHFqcWkTwSV0cBKyScUCQaS2zmr0ss0fk8M5v73PY0pmRHheccd94OGe9713+d7z3Pd47xWAwxjb4pcrHg4eG6BvyjxigiC8CR/CHkH/oj4z4rGH4q55cgrGo4HiGBiTkZHFwRoYGFOcXjHF6ZV1UEmtdgv9/nBh3mIRwes9gf9EdeWsVivYbJsUhUKRRE3GVliGePz824e1FGyFuFzHrNcbzM0pisJKpTKrVuus35/ck6QniinN5j3rdGRWqdSZx3NG66dr1aDpOzcYDCEcjsJ4PIZ2+5lXJQmKMqZ7qdQF5bgmm82BKFooR7By/KGAatgK+Vq5dPqSKjYlFkvOxplMjsLvD82t8flCC9VfFtWG8hOS9AKy3OWmc0djWX7lVdmhPBj0QyAQAqdzH9zuI9ACTcUhXq8H7Pbd2VgURbpiq6L5YLtie2K+ajR959zuQ+h0utxRNym4iZAoBF0Rq+d0HpDLaoGm4vA7x12P2i8SiVJ74h4kny+SWGxHFNhqPVAFEYdjGxKJJM2p5U+2PFOH/G3roWuieLWY+zm9YorTK6Y4vYLiRmBQUJwExuTG0L/T1/DAABOYHCDoHRTVADwn4LreAU8RO5RkFIIJAAAAAElFTkSuQmCC"
+
+      const titleEl = document.createElement("p")
+      titleEl.innerHTML = option.title
+      optionEl.appendChild(img)
+      optionEl.appendChild(titleEl)
       optionEl.classList.add("option")
       optionEl.addEventListener("click", () => {
         parent.postMessage({ pluginMessage: { type: 'run', data: option.key } }, '*')

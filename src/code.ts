@@ -1,6 +1,6 @@
 import { createAutoLayoutFrame, createFrame, createLine, createTextNode } from "./figmaFactory";
 
-figma.showUI(__html__, { height: 320 });
+figma.showUI(__html__, { height: 400, width: 480 });
 
 const optionGroups = [
   {
@@ -22,27 +22,30 @@ const optionGroups = [
     options: [{
       key: "textInput",
       title: "Text Input"
+    },{
+      key: "textInputWithIcon",
+      title: "Text Input with Icon"
     },
     {
       key: "textInputWithLabelAndError",
-      title: "Text Input with Label and Error"
+      title: "Text Input with Label"
     },
     {
       key: "checkboxWithLabel",
-      title: "Checkbox with Label"
+      title: "Checkbox"
     },{
       key: "select",
       title: "Select",
+    },{
+      key: "dropdown",
+      title: "Dropdown",
     }]
   },{
-    title: "Structure",
+    title: "Layout",
     options: [
       {
-        key: "Card",
-        title: "Card with image and paragraphs horizontal",
-      },{
-        key: "Card",
-        title: "Card with image and paragraphs vertical",
+        key: "card",
+        title: "Card",
       },{
         key: "empty",
         title: "Empty  State",
@@ -50,28 +53,28 @@ const optionGroups = [
         key: "topNavigation",
         title: "Top Navigation",
       },{
+        key: "sideNavigation",
+        title: "Side Navigation",
+      },{
+        key: "listItem",
+        title: "List Item",
+      },{
         key: "dataTable",
         title: "Data Table",
       },{
         key: "descriptionList",
         title: "Description List",
       },{
-        key: "dropdown",
-        title: "Dropdown",
+        key: "tabs",
+        title: "tabs",
       }
     ]
   },{
     title: "Indicators",
     options: [
       {
-        key: "iconWithBadge",
-        title: "Icon with Badge",
-      },{
         key: "banner",
-        title: "Icon with Badge",
-      },{
-        key: "progressBar",
-        title: "Progress Bar",
+        title: "banner",
       },{
         key: "toast",
         title: "Toast",
