@@ -238,7 +238,29 @@ const onCreate = {
 
   } ,
   descriptionList: async () => {
+    const LIST_WIDTH_PX = 540
+    const PADDING_PX = 20
+    const TITLE_WIDTH_PX = 120
+    const DESCRIPTION_WIDTH_PX = LIST_WIDTH_PX - PADDING_PX * 2 - TITLE_WIDTH_PX
 
+    async function getRowFrame() {
+      const title = await createTextNode({initialCharacter: "Title", widthPx: TITLE_WIDTH_PX, style: "Bold"})
+      const description = await createTextNode({initialCharacter: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ", widthPx: DESCRIPTION_WIDTH_PX})
+      const rowFrame = createAutoLayoutFrame({name: "Description List Item"})
+      appendChildern(rowFrame, [title, description])
+      
+      return rowFrame
+    }
+    const row1 = await getRowFrame()
+    const line1 = createLine({ widthPx: LIST_WIDTH_PX - PADDING_PX * 2 })
+    const row2 = await getRowFrame()
+    const line2 = createLine({ widthPx: LIST_WIDTH_PX - PADDING_PX * 2 })
+    const row3 = await getRowFrame()
+
+    const descriptionListFrame = createAutoLayoutFrame({name: "DescriptionList", isVertical: true, itemSpacing: 8, widthPx: LIST_WIDTH_PX, paddingLeftAndRightPx: PADDING_PX, paddingTopAndBottomPx: PADDING_PX})
+    appendChildern(descriptionListFrame, [row1, line1, row2, line2, row3])
+
+    return descriptionListFrame
   } ,
   tabs: async () => {
 

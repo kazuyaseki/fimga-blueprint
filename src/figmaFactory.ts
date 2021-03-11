@@ -77,7 +77,8 @@ export const createTextNode = async (props: {
   initialCharacter?: string
   color?: RGB
   fontSize?: number
-  style?: string
+  style?: string,
+  widthPx?: number
 }) => {
   await figma.loadFontAsync({ style: "Regular", family: "Roboto" })
   const text = figma.createText()
@@ -94,6 +95,9 @@ export const createTextNode = async (props: {
   }
   if (props.fontSize) {
     text.fontSize = props.fontSize
+  }
+  if(props.widthPx) {
+    text.resize(props.widthPx, text.height)
   }
 
   return text
