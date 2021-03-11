@@ -235,7 +235,31 @@ const onCreate = {
     appendChildern(containerFrame, [userVector, rightContentFrame])
   } ,
   dataTable: async () => {
+    const CONTAINER_WIDTH_PX = 560
 
+    async function getRowFrame(name: string, price: string, quantity: string, netSales: string, isHeader?: boolean) {
+      const nameText = await createTextNode({initialCharacter: name, style: isHeader ? "Regular" : "Bold", widthPx: 240})
+      const priceText = await createTextNode({initialCharacter: price, widthPx: 80})
+      const quantityText = await createTextNode({initialCharacter: quantity, widthPx: 80})
+      const netSalesText = await createTextNode({initialCharacter: netSales, widthPx: 80})
+      const rowFrame = createAutoLayoutFrame({name: "DataTable Row", paddingTopAndBottomPx: 16, paddingLeftAndRightPx: 20, itemSpacing: 8})
+      appendChildern(rowFrame, [nameText, priceText, quantityText, netSalesText])
+      
+      return rowFrame
+    }
+    const headerRow = await getRowFrame("Product", "Price", "Quantity", "Net Sales", true)
+    const headerLine = createLine({ widthPx: CONTAINER_WIDTH_PX, stretch: true, strokeColor: generateGrayColor(102) })
+
+    const row1 = await getRowFrame("Apple Cider", "$125.00", "25", "$3125.00")
+    const line1 = createLine({ widthPx: CONTAINER_WIDTH_PX, stretch: true })
+    const row2 = await getRowFrame("Apple Cider", "$125.00", "25", "$3125.00")
+    const line2 = createLine({ widthPx: CONTAINER_WIDTH_PX, stretch: true })
+    const row3 = await getRowFrame("Apple Cider", "$125.00", "25", "$3125.00")
+
+    const descriptionListFrame = createAutoLayoutFrame({name: "DataTable", isVertical: true, cornerRadius: 8})
+    appendChildern(descriptionListFrame, [headerRow, headerLine, row1, line1, row2, line2, row3])
+
+    return descriptionListFrame
   } ,
   descriptionList: async () => {
     const LIST_WIDTH_PX = 540
