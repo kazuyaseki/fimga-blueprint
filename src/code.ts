@@ -1,6 +1,6 @@
 import { createAutoLayoutFrame, createFrame, createLine, createTextNode } from "./figmaFactory";
 
-figma.showUI(__html__, { height: 400, width: 480 });
+figma.showUI(__html__, { height: 400, width: 432 });
 
 const optionGroups = [
   {
