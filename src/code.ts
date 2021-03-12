@@ -2,6 +2,8 @@ import { createAutoLayoutFrame, createFrame, createLine, createTextNode } from "
 
 figma.showUI(__html__, { height: 400, width: 432 });
 
+const FIGMA_COLOR = { r: 0, g: 158 / 255, b: 254 / 255 }
+
 const optionGroups = [
   {
     title: "Action",
@@ -287,7 +289,25 @@ const onCreate = {
     return descriptionListFrame
   } ,
   tabs: async () => {
+    async function getTabFrame(props: {title: string, isActive?: boolean}) {
+      const title = await createTextNode({initialCharacter: props.title, style: props.isActive ? "Bold" : "Regular", color: props.isActive ? undefined : generateGrayColor(155)})
+      const rowFrame = createAutoLayoutFrame({name: "Tab", paddingLeftAndRightPx: 20, paddingTopAndBottomPx: 12})
+      appendChildern(rowFrame, [title])
+      
+      return rowFrame
+    }
 
+    const tab1 = await getTabFrame({ title: "Design", isActive: true })
+    const tab2 = await getTabFrame({title: "Prototype"})
+    const tab3 = await getTabFrame({ title: "Inspect" })
+    const tabsContainerFrame = createAutoLayoutFrame({name: "TabsContainer"})
+    appendChildern(tabsContainerFrame, [tab1, tab2, tab3])
+    const line = createLine({ widthPx: 78, strokeColor: FIGMA_COLOR, strokeHeight: 2 })
+
+    const tabFrame = createAutoLayoutFrame({name: "Tabs", isVertical: true})
+    appendChildern(tabFrame, [tabsContainerFrame, line])
+
+    return tabFrame
   } ,
   empty: async () => {
 

@@ -108,6 +108,7 @@ export const createLine = (props: {
   vertical?: boolean
   strokeColor?: RGB
   stretch?: boolean
+  strokeHeight?: number;
 }) => {
   const line = figma.createLine()
   const strokes:SolidPaint[] = [{ type: "SOLID" as const, color: props.strokeColor || { r: 0.9, g: 0.9, b: 0.9 }}]
@@ -122,6 +123,9 @@ export const createLine = (props: {
   }
   if (props.stretch) {
     line.constraints = { horizontal: "STRETCH", vertical: "STRETCH"}
+  }
+  if(props.strokeHeight) {
+    line.strokeWeight = props.strokeHeight
   }
 
   return line
