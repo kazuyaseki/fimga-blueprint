@@ -7,6 +7,7 @@ export const createAutoLayoutFrame = (props: {
   itemSpacing?: number
   widthPx?: number
   strokeColor?: RGB
+  backgroundColor?: RGB
   alignItemsCenter?: boolean
   spaceBetween?: boolean
 }) => {
@@ -33,6 +34,9 @@ export const createAutoLayoutFrame = (props: {
   }
   if(props.strokeColor) {
     frame.strokes = [{ type: "SOLID" as const, color: props.strokeColor}]
+  }
+  if(props.backgroundColor) {
+    frame.fills = [{ type: "SOLID" as const, color: props.backgroundColor}]
   }
   if(props.alignItemsCenter) {
     frame.counterAxisAlignItems = "CENTER"
