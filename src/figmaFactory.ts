@@ -8,6 +8,7 @@ export const createAutoLayoutFrame = (props: {
   widthPx?: number
   strokeColor?: RGB
   alignItemsCenter?: boolean
+  spaceBetween?: boolean
 }) => {
   const frame = figma.createFrame()
   frame.name = props.name
@@ -35,6 +36,9 @@ export const createAutoLayoutFrame = (props: {
   }
   if(props.alignItemsCenter) {
     frame.counterAxisAlignItems = "CENTER"
+  }
+  if(props.spaceBetween) {
+    frame.primaryAxisAlignItems = "SPACE_BETWEEN"
   }
 
   return frame;
