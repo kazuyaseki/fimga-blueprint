@@ -368,7 +368,24 @@ const onCreate = {
 
   } ,
   banner: async () => {
+    const infoVector = figma.createNodeFromSvg(infoSvgString)
+    infoVector.resize(20, 20)
 
+    const titleText = await createTextNode({initialCharacter: "Order archived", style: "Bold", fontSize: 16})
+    const descriptionText =  await createTextNode({initialCharacter: "This order was archived on March 7, 2020"})
+    const textsFrame = createAutoLayoutFrame({name: "Links", isVertical: true, itemSpacing: 8})
+    appendChildern(textsFrame, [titleText, descriptionText])
+
+    const iconAndTexts = createAutoLayoutFrame({name: "Icon And Texts", itemSpacing: 12})
+    appendChildern(iconAndTexts, [infoVector, textsFrame])
+
+    const closeVector = figma.createNodeFromSvg(closeBlackSvgString)
+    closeVector.resize(20, 20)
+    
+    const containerFrame = createAutoLayoutFrame({ name: "Banner", widthPx: 600, paddingLeftAndRightPx: 20, paddingTopAndBottomPx: 20, spaceBetween: true, strokeColor: generateGrayColor(204), cornerRadius: 8 })
+    appendChildern(containerFrame, [iconAndTexts, closeVector])
+
+    return containerFrame
   },
   toast: async () => {
     const text = await createTextNode({color: generateGrayColor(255), initialCharacter: "Message Sent"})
@@ -432,5 +449,17 @@ const searchSvgString = `
 const closeSvgString = `
 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M12 4.7L11.3 4L8 7.3L4.7 4L4 4.7L7.3 8L4 11.3L4.7 12L8 8.7L11.3 12L12 11.3L8.7 8L12 4.7Z" fill="#fff"/>
+</svg>
+`
+
+const closeBlackSvgString = `
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 4.7L11.3 4L8 7.3L4.7 4L4 4.7L7.3 8L4 11.3L4.7 12L8 8.7L11.3 12L12 11.3L8.7 8L12 4.7Z" fill="#333"/>
+</svg>
+`
+
+const infoSvgString = `
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M8 1C4.13438 1 1 4.13438 1 8C1 11.8656 4.13438 15 8 15C11.8656 15 15 11.8656 15 8C15 4.13438 11.8656 1 8 1ZM8.5 11.375C8.5 11.4438 8.44375 11.5 8.375 11.5H7.625C7.55625 11.5 7.5 11.4438 7.5 11.375V7.125C7.5 7.05625 7.55625 7 7.625 7H8.375C8.44375 7 8.5 7.05625 8.5 7.125V11.375ZM8 6C7.80374 5.99599 7.61687 5.91522 7.47948 5.775C7.3421 5.63478 7.26515 5.4463 7.26515 5.25C7.26515 5.0537 7.3421 4.86522 7.47948 4.725C7.61687 4.58478 7.80374 4.50401 8 4.5C8.19626 4.50401 8.38313 4.58478 8.52052 4.725C8.6579 4.86522 8.73485 5.0537 8.73485 5.25C8.73485 5.4463 8.6579 5.63478 8.52052 5.775C8.38313 5.91522 8.19626 5.99599 8 6Z" fill="#333"/>
 </svg>
 `
