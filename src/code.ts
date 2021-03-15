@@ -1,6 +1,7 @@
+import { base64Images } from "./base64Images";
 import { createAutoLayoutFrame, createFrame, createLine, createTextNode } from "./figmaFactory";
 
-figma.showUI(__html__, { height: 400, width: 432 });
+figma.showUI(__html__, { height: 480, width: 600 });
 
 const FIGMA_COLOR = { r: 0, g: 158 / 255, b: 254 / 255 }
 
@@ -11,36 +12,45 @@ const optionGroups = [
       {
         key: "button",
         title: "button",
+        imageData: base64Images.button
       },{
         key: "buttonWithIcon",
         title: "button with icon",
+        imageData: base64Images.buttonWithIcon
       },{
         key: "buttonGroups",
         title: "Button Groups",
+        imageData: base64Images.buttonGroups
       }
     ]
   },{
     title: "Form",
     options: [{
       key: "textInput",
-      title: "Text Input"
+      title: "Text Input",
+      imageData: base64Images.button
     },{
       key: "textInputWithIcon",
-      title: "Text Input with Icon"
+      title: "Text Input with Icon",
+      imageData: base64Images.button
     },
     {
       key: "textInputWithLabelAndError",
-      title: "Text Input with Label"
+      title: "Text Input with Label",
+      imageData: base64Images.button
     },
     {
       key: "checkboxWithLabel",
-      title: "Checkbox"
+      title: "Checkbox",
+      imageData: base64Images.button
     },{
       key: "select",
       title: "Select",
+      imageData: base64Images.button
     },{
       key: "dropdown",
       title: "Dropdown",
+      imageData: base64Images.button
     }]
   },{
     title: "Layout",
@@ -48,30 +58,39 @@ const optionGroups = [
       {
         key: "card",
         title: "Card",
+        imageData: base64Images.button
       },{
         key: "topNavigation",
         title: "Top Navigation",
+        imageData: base64Images.button
       },{
         key: "topNavigationSp",
         title: "Top Navigation SP",
+        imageData: base64Images.button
       },{
         key: "sideNavigation",
         title: "Side Navigation",
+        imageData: base64Images.button
       },{
         key: "listItem",
         title: "List Item",
+        imageData: base64Images.button
       },{
         key: "dataTable",
         title: "Data Table",
+        imageData: base64Images.button
       },{
         key: "descriptionList",
         title: "Description List",
+        imageData: base64Images.button
       },{
         key: "tabs",
         title: "tabs",
+        imageData: base64Images.button
       },{
         key: "empty",
-        title: "Empty  State",
+        title: "Empty State",
+        imageData: base64Images.empty
       }
     ]
   },{
@@ -80,9 +99,11 @@ const optionGroups = [
       {
         key: "banner",
         title: "banner",
+        imageData: base64Images.button
       },{
         key: "toast",
         title: "Toast",
+        imageData: base64Images.button
       }
     ]
   }
@@ -97,16 +118,17 @@ function appendChildern(node: FrameNode, children: SceneNode[]) {
 const onCreate = {
   button: async () => {
     const text = await createTextNode({})
-    const frame = createAutoLayoutFrame({name: "Button", paddingTopAndBottomPx: 8, paddingLeftAndRightPx: 16, cornerRadius: 4})
+    const frame = createAutoLayoutFrame({name: "Button", paddingTopAndBottomPx: 8, paddingLeftAndRightPx: 16, cornerRadius: 4, strokeColor: generateGrayColor(204)})
     frame.appendChild(text)
 
     return frame
   },
   buttonWithIcon: async () => {
     const text = await createTextNode({})
-    const iconFrame = createFrame({name: "Icon", size: 16})
-    const frame = createAutoLayoutFrame({name: "Button with Icon", paddingTopAndBottomPx: 8, paddingLeftAndRightPx: 16, cornerRadius: 4, itemSpacing: 8})
-    frame.appendChild(iconFrame)
+    const infoVector = figma.createNodeFromSvg(infoSvgString)
+    infoVector.resize(16, 16)
+    const frame = createAutoLayoutFrame({name: "Button with Icon", paddingTopAndBottomPx: 8, paddingLeftAndRightPx: 16, cornerRadius: 4, itemSpacing: 8, alignItemsCenter: true, strokeColor: generateGrayColor(204)})
+    frame.appendChild(infoVector)
     frame.appendChild(text)
 
     return frame
@@ -128,7 +150,7 @@ const onCreate = {
     const button3 = createAutoLayoutFrame({name: "Button", paddingTopAndBottomPx: 8, paddingLeftAndRightPx: 16})
     button3.appendChild(text3)
 
-    const groupFrame = createAutoLayoutFrame({name: "ButtonGroup", cornerRadius: 4, itemSpacing: 0})
+    const groupFrame = createAutoLayoutFrame({name: "ButtonGroup", cornerRadius: 4, itemSpacing: 0, strokeColor: generateGrayColor(204)})
     groupFrame.appendChild(button1)
     groupFrame.appendChild(line1)
     groupFrame.appendChild(button2)
@@ -365,7 +387,20 @@ const onCreate = {
     return tabFrame
   } ,
   empty: async () => {
+    const emptyVector = figma.createNodeFromSvg(emptySvgString)
+    emptyVector.resize(80, 80)
 
+    const messageText = await createTextNode({initialCharacter: "You have no message", fontSize: 16, style: "Bold"})
+    const subMessageText = await createTextNode({initialCharacter: "Let's get started with Messaging with your friends!", color: generateGrayColor(70)})
+
+    const text = await createTextNode({})
+    const buttonFrame = createAutoLayoutFrame({name: "Button", paddingTopAndBottomPx: 8, paddingLeftAndRightPx: 16, cornerRadius: 4, backgroundColor: generateGrayColor(204)})
+    buttonFrame.appendChild(text)
+
+    const containerFrame = createAutoLayoutFrame({ name: "Empty State", widthPx: 480, paddingTopAndBottomPx: 60, strokeColor: generateGrayColor(204), cornerRadius: 8, itemSpacing: 20, isVertical: true, alignItemsCenter: true })
+    appendChildern(containerFrame, [emptyVector, messageText, subMessageText, buttonFrame])
+
+    return containerFrame
   } ,
   banner: async () => {
     const infoVector = figma.createNodeFromSvg(infoSvgString)
@@ -463,3 +498,8 @@ const infoSvgString = `
 <path d="M8 1C4.13438 1 1 4.13438 1 8C1 11.8656 4.13438 15 8 15C11.8656 15 15 11.8656 15 8C15 4.13438 11.8656 1 8 1ZM8.5 11.375C8.5 11.4438 8.44375 11.5 8.375 11.5H7.625C7.55625 11.5 7.5 11.4438 7.5 11.375V7.125C7.5 7.05625 7.55625 7 7.625 7H8.375C8.44375 7 8.5 7.05625 8.5 7.125V11.375ZM8 6C7.80374 5.99599 7.61687 5.91522 7.47948 5.775C7.3421 5.63478 7.26515 5.4463 7.26515 5.25C7.26515 5.0537 7.3421 4.86522 7.47948 4.725C7.61687 4.58478 7.80374 4.50401 8 4.5C8.19626 4.50401 8.38313 4.58478 8.52052 4.725C8.6579 4.86522 8.73485 5.0537 8.73485 5.25C8.73485 5.4463 8.6579 5.63478 8.52052 5.775C8.38313 5.91522 8.19626 5.99599 8 6Z" fill="#333"/>
 </svg>
 `
+
+const emptySvgString = `
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M20.37 8.91L19.37 10.64L7.24 3.64L8.24 1.91L11.28 3.66L12.64 3.29L16.97 5.79L17.34 7.16L20.37 8.91ZM6 19V7H11.07L18 11V19C18 19.5304 17.7893 20.0391 17.4142 20.4142C17.0391 20.7893 16.5304 21 16 21H8C7.46957 21 6.96086 20.7893 6.58579 20.4142C6.21071 20.0391 6 19.5304 6 19ZM8 19H16V12.2L10.46 9H8V19Z" fill="#666"/>
+</svg>`

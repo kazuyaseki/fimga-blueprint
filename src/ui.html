@@ -13,9 +13,9 @@
   }
 
   .section-header {
-    font-size: 11px;
-    padding: 6px 12px;
-    background-color: #e5e5e5;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 20px 20px 0 20px;
     color: #666;
   }
 
@@ -28,19 +28,32 @@
   }
 
   .option {
-    background-color: #e5e5e5;
+    position: relative;
+    background-color: #DDF2FF;
     border: none;
     text-align: left;
-    padding: 8px 12px;
-    width: 120px;
-    height: 80px;
-
+    padding: 20px 24px 40px 24px;
+    max-width: 240px;
+    
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    border-radius: 4px;
     gap: 8px;
   }
+
+  .option > img {
+    width: 100%;
+    object-fit: scale-down;
+  }
+  .option > p {
+    position: absolute;
+    bottom: 8px;
+    font-size: 16px;
+    color: #666;
+  }
+
 
   .option:not(:last-child) {
     border-bottom: 1px solid #e5e5e5;
@@ -69,8 +82,7 @@ onmessage = (event) => {
     group.options.forEach((option) => {
       const optionEl = document.createElement("button")
       const img = document.createElement("img")
-      // img.src = require(`./images/${option.key}.png`)
-      img.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADcAAAAeCAYAAACIeIa4AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAHtSURBVHgB7Zm/SwJhGMefi7ZzaErH/oBK2wo3CxwCC4RABQdBR0FdbHFqcWkTwSV0cBKyScUCQaS2zmr0ss0fk8M5v73PY0pmRHheccd94OGe9713+d7z3Pd47xWAwxjb4pcrHg4eG6BvyjxigiC8CR/CHkH/oj4z4rGH4q55cgrGo4HiGBiTkZHFwRoYGFOcXjHF6ZV1UEmtdgv9/nBh3mIRwes9gf9EdeWsVivYbJsUhUKRRE3GVliGePz824e1FGyFuFzHrNcbzM0pisJKpTKrVuus35/ck6QniinN5j3rdGRWqdSZx3NG66dr1aDpOzcYDCEcjsJ4PIZ2+5lXJQmKMqZ7qdQF5bgmm82BKFooR7By/KGAatgK+Vq5dPqSKjYlFkvOxplMjsLvD82t8flCC9VfFtWG8hOS9AKy3OWmc0djWX7lVdmhPBj0QyAQAqdzH9zuI9ACTcUhXq8H7Pbd2VgURbpiq6L5YLtie2K+ajR959zuQ+h0utxRNym4iZAoBF0Rq+d0HpDLaoGm4vA7x12P2i8SiVJ74h4kny+SWGxHFNhqPVAFEYdjGxKJJM2p5U+2PFOH/G3roWuieLWY+zm9YorTK6Y4vYLiRmBQUJwExuTG0L/T1/DAABOYHCDoHRTVADwn4LreAU8RO5RkFIIJAAAAAElFTkSuQmCC"
+      img.src = option.imageData
 
       const titleEl = document.createElement("p")
       titleEl.innerHTML = option.title
