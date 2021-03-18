@@ -28,29 +28,21 @@ const optionGroups = [
     options: [{
       key: "textInput",
       title: "Text Input",
-      imageData: base64Images.button
-    },{
-      key: "textInputWithIcon",
-      title: "Text Input with Icon",
-      imageData: base64Images.button
+      imageData: base64Images.textInput
     },
     {
-      key: "textInputWithLabelAndError",
+      key: "textInputWithLabel",
       title: "Text Input with Label",
-      imageData: base64Images.button
+      imageData: base64Images.textInputWithLabel
     },
     {
-      key: "checkboxWithLabel",
+      key: "checkbox",
       title: "Checkbox",
-      imageData: base64Images.button
+      imageData: base64Images.checkbox
     },{
       key: "select",
       title: "Select",
-      imageData: base64Images.button
-    },{
-      key: "dropdown",
-      title: "Dropdown",
-      imageData: base64Images.button
+      imageData: base64Images.select
     }]
   },{
     title: "Layout",
@@ -58,35 +50,31 @@ const optionGroups = [
       {
         key: "card",
         title: "Card",
-        imageData: base64Images.button
+        imageData: base64Images.card
       },{
         key: "topNavigation",
         title: "Top Navigation",
-        imageData: base64Images.button
+        imageData: base64Images.topNavigation
       },{
         key: "topNavigationSp",
         title: "Top Navigation SP",
-        imageData: base64Images.button
-      },{
-        key: "sideNavigation",
-        title: "Side Navigation",
-        imageData: base64Images.button
+        imageData: base64Images.topNavigationSp
       },{
         key: "listItem",
         title: "List Item",
-        imageData: base64Images.button
+        imageData: base64Images.listItem
       },{
         key: "dataTable",
         title: "Data Table",
-        imageData: base64Images.button
+        imageData: base64Images.dataTable
       },{
         key: "descriptionList",
         title: "Description List",
-        imageData: base64Images.button
+        imageData: base64Images.descriptionList
       },{
         key: "tabs",
         title: "tabs",
-        imageData: base64Images.button
+        imageData: base64Images.tabs
       },{
         key: "empty",
         title: "Empty State",
@@ -99,11 +87,11 @@ const optionGroups = [
       {
         key: "banner",
         title: "banner",
-        imageData: base64Images.button
+        imageData: base64Images.banner
       },{
         key: "toast",
         title: "Toast",
-        imageData: base64Images.button
+        imageData: base64Images.toast
       }
     ]
   }
@@ -160,13 +148,6 @@ const onCreate = {
     return groupFrame
   },
   textInput: async () => {
-    const text = await createTextNode({color: {r: 153 / 255, g: 153 / 255, b: 153 / 255}, initialCharacter: "Placeholder..."})
-    const frame = createAutoLayoutFrame({name: "Text Input", paddingTopAndBottomPx: 8, paddingLeftAndRightPx: 12, cornerRadius: 4, itemSpacing: 8, widthPx: 320, strokeColor: {r: 220 / 255, g: 220 / 255, b: 220 / 255}})
-    frame.appendChild(text)
-
-    return frame
-  },
-  textInputWithIcon: async () => {
     const searchVector = figma.createNodeFromSvg(searchSvgString)
     const text = await createTextNode({color: {r: 153 / 255, g: 153 / 255, b: 153 / 255}, initialCharacter: "Placeholder..."})
     const frame = createAutoLayoutFrame({name: "Text Input", paddingTopAndBottomPx: 8, paddingLeftAndRightPx: 12, cornerRadius: 4, itemSpacing: 8, widthPx: 320, strokeColor: generateGrayColor(220), alignItemsCenter: true})
@@ -174,8 +155,8 @@ const onCreate = {
 
     return frame
   },
-  textInputWithLabelAndError: async () => {
-    const labelText = await createTextNode({initialCharacter: "Label", fontSize: 12})
+  textInputWithLabel: async () => {
+    const labelText = await createTextNode({initialCharacter: "Label", fontSize: 12, color: generateGrayColor(102)})
     
     const spacer16 = createFrame({name: "Spacer", size: 8})
 
@@ -185,7 +166,7 @@ const onCreate = {
 
     const spacer8 = createFrame({name: "Spacer", size: 4})
 
-    const errorText = await createTextNode({initialCharacter: "error message!!", color: {r: 244 / 255, g: 67 / 255, b: 54 / 255}, fontSize: 11})
+    const errorText = await createTextNode({initialCharacter: "error message text", color: {r: 253 / 255, g: 111 / 255, b: 101 / 255}, fontSize: 11})
 
     const containerFrame = createAutoLayoutFrame({name: "Text Input with Label and Error",isVertical: true})
 
@@ -193,7 +174,7 @@ const onCreate = {
 
     return containerFrame
   },
-  checkboxWithLabel: async () => {
+  checkbox: async () => {
     const checkboxVector = figma.createNodeFromSvg(`<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M12.75 0.75H1.25C0.973437 0.75 0.75 0.973437 0.75 1.25V12.75C0.75 13.0266 0.973437 13.25 1.25 13.25H12.75C13.0266 13.25 13.25 13.0266 13.25 12.75V1.25C13.25 0.973437 13.0266 0.75 12.75 0.75ZM9.86719 4.71406L6.57656 9.27656C6.53057 9.34076 6.46994 9.39306 6.3997 9.42914C6.32946 9.46523 6.25162 9.48405 6.17266 9.48405C6.09369 9.48405 6.01586 9.46523 5.94561 9.42914C5.87537 9.39306 5.81474 9.34076 5.76875 9.27656L3.82031 6.57656C3.76094 6.49375 3.82031 6.37813 3.92188 6.37813H4.65469C4.81406 6.37813 4.96562 6.45469 5.05937 6.58594L6.17188 8.12969L8.62813 4.72344C8.72188 4.59375 8.87187 4.51562 9.03281 4.51562H9.76562C9.86719 4.51562 9.92656 4.63125 9.86719 4.71406V4.71406Z" fill="#666"/>
     </svg>`)
@@ -281,27 +262,6 @@ const onCreate = {
 
     return containerFrame
   },
-  sideNavigation: async () => {
-    async function getRowFrame() {
-      const userVector = figma.createNodeFromSvg(userSvgString)
-      userVector.resize(24, 24)
-      const text = await createTextNode({initialCharacter: "Title"})
-      const rowFrame = createAutoLayoutFrame({name: "Sidenavi Item", itemSpacing: 8, alignItemsCenter: true})
-      appendChildern(rowFrame, [userVector, text])
-      
-      return rowFrame
-    }
-    const row1 = await getRowFrame()
-    const row2 = await getRowFrame()
-    const row3 = await getRowFrame()
-    const row4 = await getRowFrame()
-    const row5 = await getRowFrame()
-
-    const sidenaviFrame = createAutoLayoutFrame({name: "Sidenavi", isVertical: true, itemSpacing: 8, widthPx: 240, paddingLeftAndRightPx: 20, paddingTopAndBottomPx: 20})
-    appendChildern(sidenaviFrame, [row1, row2, row3, row4, row5])
-
-    return sidenaviFrame
-  } ,
   listItem: async () => {
     const userVector = figma.createNodeFromSvg(userSvgString)
 
