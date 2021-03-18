@@ -1,7 +1,7 @@
 import { base64Images } from "./base64Images";
 import { createAutoLayoutFrame, createFrame, createLine, createTextNode } from "./figmaFactory";
 
-figma.showUI(__html__, { height: 480, width: 600 });
+figma.showUI(__html__, { height: 480, width: 588 });
 
 const FIGMA_COLOR = { r: 0, g: 158 / 255, b: 254 / 255 }
 
@@ -10,12 +10,8 @@ const optionGroups = [
     title: "Action",
     options: [
       {
-        key: "button",
-        title: "button",
-        imageData: base64Images.button
-      },{
         key: "buttonWithIcon",
-        title: "button with icon",
+        title: "Button",
         imageData: base64Images.buttonWithIcon
       },{
         key: "buttonGroups",
@@ -52,6 +48,14 @@ const optionGroups = [
         title: "Card",
         imageData: base64Images.card
       },{
+        key: "empty",
+        title: "Empty State",
+        imageData: base64Images.empty
+      },{
+        key: "tabs",
+        title: "tabs",
+        imageData: base64Images.tabs
+      },{
         key: "topNavigation",
         title: "Top Navigation",
         imageData: base64Images.topNavigation
@@ -71,14 +75,6 @@ const optionGroups = [
         key: "descriptionList",
         title: "Description List",
         imageData: base64Images.descriptionList
-      },{
-        key: "tabs",
-        title: "tabs",
-        imageData: base64Images.tabs
-      },{
-        key: "empty",
-        title: "Empty State",
-        imageData: base64Images.empty
       }
     ]
   },{
