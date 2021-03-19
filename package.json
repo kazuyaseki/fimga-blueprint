@@ -1,7 +1,7 @@
 {
-  "name": "realistic-dummy-text-ja",
+  "name": "figma-blueprint",
   "version": "1.0.0",
-  "description": "Your Figma plugin",
+  "description": "Figma Blueprint",
   "main": "code.js",
   "scripts": {
     "dev": "webpack --mode=development --watch",
