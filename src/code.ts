@@ -396,6 +396,8 @@ figma.ui.onmessage = async (msg) => {
 
     figma.currentPage.appendChild(node);
     figma.currentPage.selection = [node];
+    node.x = figma.viewport.center.x - node.width / 2
+    node.y = figma.viewport.center.y - node.height / 2
   }
 };
 
